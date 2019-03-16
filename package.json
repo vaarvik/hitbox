@@ -1,0 +1,24 @@
+{
+  "name": "hitbox",
+  "version": "1.0.0",
+  "description": "Something with a box that jumps and hits a line",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaarvik/hitbox.git"
+  },
+  "keywords": [
+    "box",
+    "line",
+    "game"
+  ],
+  "author": "Johann Vaarvik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vaarvik/hitbox/issues"
+  },
+  "homepage": "https://github.com/vaarvik/hitbox#readme"
+}
