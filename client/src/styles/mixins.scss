@@ -1,0 +1,21 @@
+@mixin transition {
+  @for $i from 0 through 17 {
+    $hundreds: $i/10;
+    .ease-out-#{$i} {
+      transition: #{$hundreds}s ease-out;
+    }
+
+    .ease-in-out-#{$i} {
+      color: red;
+      transition: #{$hundreds}s ease-in-out;
+    }
+
+    .linear-#{$i} {
+      transition: #{$hundreds}s linear;
+    }
+
+    .ease-in-#{$i} {
+      transition: #{$hundreds}s ease-in;
+    }
+  }
+}

@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 
-class Box extends Component {
-  render() {
-    return <div className="line" />;
-  }
-}
+const Line = props => {
+  return <div className="line" style={{ top: `${props.top}%` }} />;
+};
 
-export default Box;
+export default Line;
