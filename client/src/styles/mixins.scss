@@ -6,8 +6,7 @@
     }
 
     .ease-in-out-#{$i} {
-      color: red;
-      transition: #{$hundreds}s ease-in-out;
+      transition: #{$hundreds}s ease-in-out, transform 0s ease-in-out;
     }
 
     .linear-#{$i} {
