@@ -11,7 +11,9 @@ html,
   width: 100%;
   height: 100%;
   position: relative;
+  background: black;
 }
+
 body {
   margin: 0;
   padding: 0;
@@ -30,26 +32,52 @@ code {
 figure {
   padding: 0;
   margin: 0;
-  width: 20%;
+  width: 40%;
   height: 5%;
   display: inline-block;
-  border: solid red 1px;
+  border: solid red 2.5px;
+  border-radius: 100% 0% 0% 0%;
+  overflow: hidden;
   position: absolute;
   margin: 1% 3%;
   bottom: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
   span {
-    background: blue;
+    background: red;
     display: inline-block;
     height: 100%;
-    width: 20%;
+    width: 40%;
     transition: ease-out 0.1s;
   }
   &::after {
-    background: blue;
+    background: red;
     width: 100%;
     height: 100%;
   }
+}
+
+form {
+  color: white;
+  text-align: center;
+  input {
+    width: 10em;
+    height: 10em;
+    background: rgb(32, 32, 32);
+    border: 3px solid white;
+    text-align: center;
+    outline: none;
+  }
+}
+
+footer {
+  height: 7%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background: #1d1d1d;
+  z-index: 0;
 }
 
 .box {
@@ -68,6 +96,12 @@ figure {
   display: inline-block;
   position: relative;
   height: 100%;
+  color: white;
+  p {
+    vertical-align: middle;
+    margin: 0;
+    padding: 2%;
+  }
 }
 
 .line {

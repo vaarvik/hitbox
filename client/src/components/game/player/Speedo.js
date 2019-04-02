@@ -4,7 +4,6 @@ const Speedo = props => {
   return (
     <figure>
       <span style={{ width: `${props.speed}%` }} />
-      {/* <p>{props.speed}</p> */}
     </figure>
   );
 };
