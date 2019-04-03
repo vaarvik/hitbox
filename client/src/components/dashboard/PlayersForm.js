@@ -1,11 +1,33 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addPlayer } from "../../actions/playerActions";
 
-export default class PlayerForm extends Component {
+class PlayerForm extends Component {
   render() {
     return (
       <form>
-        <input for="players" placeholder="Number of Players" />
+        <label>Players:</label>
+        <input
+          onKeyUp={e => {
+            this.props.addPlayer(e.target.value);
+          }}
+          htmlFor="players"
+          placeholder="1"
+        />
       </form>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addPlayer: input => {
+      dispatch(addPlayer(input));
+    }
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(PlayerForm);

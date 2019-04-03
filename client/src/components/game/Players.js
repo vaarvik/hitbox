@@ -2,56 +2,11 @@ import React, { Component } from "react";
 import Box from "./player/Box";
 import Line from "./player/Line";
 import Speedo from "./player/Speedo";
+import { connect } from "react-redux";
 
-class App extends Component {
+class Players extends Component {
   state = {
-    players: [
-      {
-        name: "Reggie",
-        color: "green",
-        score: 0,
-        keyCode: 87,
-        box: {
-          height: 5,
-          initTop: 0,
-          top: 0,
-          rotation: 0,
-          dist: 1
-        },
-        line: { top: 20, height: 4 },
-        speed: 0
-      },
-      {
-        name: "Johnny",
-        color: "orange",
-        score: 0,
-        keyCode: 69,
-        box: {
-          height: 5,
-          initTop: 0,
-          top: 0,
-          rotation: 0,
-          dist: 1
-        },
-        line: { top: 20, height: 4 },
-        speed: 0
-      },
-      {
-        name: "Pedro",
-        color: "yellow",
-        score: 0,
-        keyCode: 82,
-        box: {
-          height: 5,
-          initTop: 0,
-          top: 0,
-          rotation: 0,
-          dist: 1
-        },
-        line: { top: 20, height: 4 },
-        speed: 0
-      }
-    ],
+    players: this.props.players,
     keys: [],
     addKey: (newKey, i) => {
       const { keys } = this.state;
@@ -223,4 +178,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    players: state.players.players
+  };
+};
+
+export default connect(mapStateToProps)(Players);

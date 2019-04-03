@@ -40,7 +40,8 @@ class Box extends Component {
             valid: false
           });
           removeKey(i);
-          fall(this.props.speed, this.refs.box, i);
+          if (this.refs && Object.keys(this.refs).length)
+            fall(this.props.speed, this.refs[`box${i}`], i);
       }
     });
   }
@@ -49,7 +50,7 @@ class Box extends Component {
     const { height, width, top, rotation, dist, color } = this.props;
     return (
       <div
-        id="box"
+        id={`box${this.props.i}`}
         className="box"
         tabIndex="0"
         style={{
@@ -60,7 +61,7 @@ class Box extends Component {
           boxShadow: `1px ${dist}px ${dist}px #44444480`,
           backgroundColor: color
         }}
-        ref="box"
+        ref={`box${this.props.i}`}
       />
     );
   }

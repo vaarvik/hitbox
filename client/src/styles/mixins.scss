@@ -18,3 +18,38 @@
     }
   }
 }
+
+@mixin generate-grid($columns, $size: "") {
+  @for $i from 1 through $columns {
+    $margin: 0.25;
+    $width: calc((100% / (#{$columns} / #{$i}) - #{$margin * 2}#{"%"}));
+    @if ($size == "") {
+      .col-#{$i}-#{$columns} {
+        width: $width;
+        margin: $margin#{"%"};
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 0;
+        > * {
+          font-size: 16px;
+        }
+      }
+      .col-offset-#{$i}-#{$columns} {
+        margin-left: $width;
+      }
+    } @else {
+      .col-#{$size}-#{$i}-#{$columns} {
+        width: $width;
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 0;
+        > * {
+          font-size: 16px;
+        }
+      }
+      .col-#{$size}-offset-#{$i}-#{$columns} {
+        margin-left: $width;
+      }
+    }
+  }
+}
