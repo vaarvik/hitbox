@@ -1,11 +1,18 @@
 import React, { Component } from "react";
+import { HuePicker } from "react-color";
 import { connect } from "react-redux";
 import { changeKeyCode, getKeyCode } from "../../actions/playerActions";
 
 class PlayerForm extends Component {
   state = {
-    maxColSize: 7
+    maxColSize: 7,
+    color: this.props.player.color
   };
+
+  handleChange = color => {
+    this.setState({ color: color.hex });
+  };
+
   render() {
     const { maxColSize } = this.state;
     let colSize = Math.floor(
@@ -27,8 +34,8 @@ class PlayerForm extends Component {
         <input htmlFor="name" placeholder={name} />
         <input
           htmlFor="color"
-          value={color}
-          style={{ background: color, color: "white" }}
+          value={this.state.color}
+          style={{ background: this.state.color, color: "white" }}
         />
         <input
           htmlFor="keyCode"
@@ -36,6 +43,11 @@ class PlayerForm extends Component {
           onKeyUp={e => {
             this.props.changeKeyCode(this.props.players, id, e.keyCode);
           }}
+        />
+        <HuePicker
+          width="100%"
+          color={this.state.color}
+          onChange={this.handleChange}
         />
       </form>
     );

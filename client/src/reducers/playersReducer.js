@@ -1,12 +1,11 @@
+import { getRandomColor } from "../actions/playerActions";
+
 const initState = {
   players: [
     {
       id: 0,
       name: `Player 1`,
-      color:
-        "#" +
-        Math.floor(Math.random() * 89 + 10) +
-        Math.floor(Math.random() * 8999 + 1000),
+      color: getRandomColor(),
       textColor: "white",
       score: 0,
       keyCode: 87,

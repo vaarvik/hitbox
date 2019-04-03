@@ -1,17 +1,71 @@
+//GET RANDOM COLOR
+
+export const getRandomColor = () => {
+  function getRandomNumber(max = 1, min = 0) {
+    return Math.floor(Math.random() * max + min);
+  }
+
+  const isDuplicateIndex = (colorIndexes, currentIndex) => {
+    for (let j = 0; j < colorIndexes.length; j++) {
+      if (colorIndexes[j] === currentIndex) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const combineColors = combinationColors => {
+    let final = "#";
+    let colorIndexes = [];
+    for (let i = 0; i < combinationColors.length; i++) {
+      let index = getRandomNumber(combinationColors.length);
+      if (isDuplicateIndex(colorIndexes, index)) i--;
+      else {
+        colorIndexes.push(index);
+        final += combinationColors[colorIndexes[i]];
+      }
+    }
+    return final;
+  };
+
+  const randomNumLet = [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f"
+  ];
+  const randomComb = `${randomNumLet[getRandomNumber(randomNumLet.length)]}${
+    randomNumLet[getRandomNumber(randomNumLet.length)]
+  }`;
+
+  const combinationColors = ["00", "ff", randomComb];
+
+  return combineColors(combinationColors);
+};
+
+//---------------------------------------------------------
+
 export const addPlayer = input => {
   let players = [];
   if (!isNaN(input)) {
     for (let i = 0; i < input; i++) {
-      let firstRandom = Math.floor(Math.random() * 89 + 10);
-      let text = "white";
-      //   if (firstRandom <= 90) text = "white";
-      let randomColor =
-        "#" + firstRandom + Math.floor(Math.random() * 8999 + 1000);
       players.push({
         id: i,
         name: `Player ${i + 1}`,
-        color: randomColor,
-        textColor: text,
+        color: getRandomColor(),
+        textColor: "white",
         score: 0,
         keyCode: 65 + i,
         box: {
