@@ -41,14 +41,28 @@ export const getKeyCode = keyCode => {
   }
 };
 
+export const shrinkLine = (players, id, amount) => {
+  let array = players.map(player => {
+    if (id === player.id) {
+      player.line.height -= amount;
+    }
+    return player;
+  });
+  return {
+    type: "SHRINK_LINE",
+    players: array
+  };
+};
+
 export const changeKeyCode = (players, id, keyCode) => {
-  players.find(player => {
+  let array = players.map(player => {
     if (id === player.id) {
       player.keyCode = keyCode;
     }
+    return player;
   });
   return {
     type: "CHANGE_KEY",
-    players
+    players: array
   };
 };

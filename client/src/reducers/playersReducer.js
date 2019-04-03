@@ -35,6 +35,11 @@ const playersReducer = (state = initState, action) => {
         ...state,
         players: action.players
       };
+    case "SHRINK_LINE":
+      return {
+        ...state,
+        players: action.players
+      };
     default:
       return state;
   }

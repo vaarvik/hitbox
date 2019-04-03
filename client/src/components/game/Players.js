@@ -156,6 +156,7 @@ class Players extends Component {
               <Box
                 jump={this.boxJump}
                 fall={this.boxFall}
+                player={player}
                 top={player.box.top}
                 rotation={player.box.rotation}
                 height={player.box.height}
@@ -163,6 +164,7 @@ class Players extends Component {
                 speed={player.speed}
                 color={player.color}
                 keyCode={player.keyCode}
+                line={player.line.height}
                 i={i}
                 addKey={this.state.addKey}
                 removeKey={this.state.removeKey}

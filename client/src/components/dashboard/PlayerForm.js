@@ -8,12 +8,6 @@ class PlayerForm extends Component {
   };
   render() {
     const { maxColSize } = this.state;
-    const { name, color, id, keyCode } = this.props.player;
-    // console.log(
-    //   Math.floor(maxColSize / (this.props.players.length % maxColSize)) *
-    //     (this.props.players.length % maxColSize)
-    // );
-    console.log(this.props.players.length % maxColSize);
     let colSize = Math.floor(
       maxColSize / (this.props.players.length % maxColSize)
     );
@@ -25,6 +19,8 @@ class PlayerForm extends Component {
       colsTotal = maxColSize;
       colSize = 1;
     }
+
+    const { name, color, id, keyCode } = this.props.player;
 
     return (
       <form class={`player-details col-${colSize}-${colsTotal}`}>
@@ -39,9 +35,6 @@ class PlayerForm extends Component {
           value={String.fromCharCode(getKeyCode(keyCode)).toUpperCase()}
           onKeyUp={e => {
             this.props.changeKeyCode(this.props.players, id, e.keyCode);
-            e.target.value = String.fromCharCode(
-              getKeyCode(e.keyCode)
-            ).toUpperCase();
           }}
         />
       </form>

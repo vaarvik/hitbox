@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { shrinkLine } from "../../../actions/playerActions";
 
 class Box extends Component {
   state = {
@@ -6,12 +8,14 @@ class Box extends Component {
   };
 
   loop = e => {
+    const { addKey, keys, jump, i } = this.props;
     let bot = setInterval(() => {
+      const { keyCode, speed } = this.props.player;
       if (this.state.valid) {
-        this.props.addKey(this.props.keyCode, this.props.i);
-        for (let j = 0; j < this.props.keys.length; j++) {
-          if (this.props.keys[j] && this.props.keys[j].key === e.keyCode) {
-            this.props.jump(this.props.speed, j, e.keyCode);
+        addKey(keyCode, i);
+        for (let j = 0; j < keys.length; j++) {
+          if (keys[j] && keys[j].key === e.keyCode) {
+            jump(speed, j, e.keyCode);
           }
         }
       } else {
@@ -44,6 +48,13 @@ class Box extends Component {
             fall(this.props.speed, this.refs[`box${i}`], i);
       }
     });
+    this.props.shrinkLine(
+      this.props.players,
+      this.props.i,
+      0.5,
+      this.props.player.line.height,
+      5
+    );
   }
 
   render() {
@@ -67,4 +78,25 @@ class Box extends Component {
   }
 }
 
-export default Box;
+const mapStateToProps = state => {
+  return {
+    players: state.players.players
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    shrinkLine: (players, id, amount, lineHeight, time) => {
+      let interval = setInterval(i => {
+        lineHeight -= amount;
+        dispatch(shrinkLine(players, id, amount));
+        if (lineHeight <= 0) clearInterval(interval);
+      }, time * 1000);
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Box);
