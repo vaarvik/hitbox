@@ -4,7 +4,7 @@ import { addPlayer } from "../../actions/playerActions";
 
 class PlayerForm extends Component {
   state = {
-    maxPlayers: 15
+    maxPlayers: 16
   };
   regValid = input => {
     let reg = /^[0-9]+$/;

@@ -3,13 +3,107 @@ import { connect } from "react-redux";
 import PlayerForm from "./PlayerForm";
 
 class PlayersDisplay extends Component {
+  state = {
+    gradientBottom: {
+      initHeight: 55,
+      height: 55
+    },
+    gradientTop: {
+      initHeight: 0,
+      height: 0,
+      maxheight: 55
+    }
+  };
+  handleScroll = e => {
+    const element = e.target;
+    new Promise(resolve => {
+      this.setBottomGradient(e);
+      resolve();
+    }).then(() => {
+      this.setTopGradient(element);
+    });
+    //prevent bug when scroll hits bottom by not letting it hit bottom
+    this.preventScrollBug(element);
+  };
+
+  setTopGradient = element => {
+    const { initHeight, maxheight } = this.state.gradientTop;
+    const { scrollHeight, scrollTop, clientHeight } = element;
+    //if the scroll is closing to bottom decrease the gradient height
+    // console.log(scrollHeight, scrollTop, clientHeight);
+    if (scrollTop >= initHeight && scrollTop < maxheight) {
+      this.setState({
+        ...this.state,
+        gradientTop: {
+          ...this.state.gradientTop,
+          height: scrollTop
+        }
+      });
+    }
+  };
+
+  setBottomGradient = e => {
+    const { initHeight } = this.state.gradientBottom;
+    const { scrollHeight, scrollTop, clientHeight } = e.target;
+
+    if (scrollHeight - (scrollTop + clientHeight) <= initHeight)
+      this.setState({
+        ...this.state,
+        gradientBottom: {
+          ...this.state.gradientBottom,
+          height: scrollHeight - (scrollTop + clientHeight)
+        }
+      });
+    //if the scroll is not closing to bottom restore/keep the gradient height
+    else {
+      this.setState({
+        ...this.state,
+        gradientBottom: {
+          ...this.state.gradientBottom,
+          height: initHeight
+        }
+      });
+    }
+  };
+
+  preventScrollBug = div => {
+    if (div.scrollHeight - (div.scrollTop + div.clientHeight) <= 0) {
+      div.scrollTop =
+        div.scrollHeight -
+        (div.scrollTop + div.clientHeight) +
+        div.scrollTop -
+        0.1;
+    }
+  };
+
+  getMargin = gradient => {
+    return gradient.height - gradient.initHeight - gradient.initHeight / 2;
+  };
+
   render() {
     return (
-      <ul>
-        {this.props.players.map(player => {
-          return <PlayerForm player={player} players={this.props.players} />;
-        })}
-      </ul>
+      <div className="ul-holder">
+        <ul ref="ul" onScroll={this.handleScroll}>
+          <div
+            className="gradientBot"
+            tabIndex={1}
+            style={{
+              marginBottom: `${this.getMargin(this.state.gradientBottom)}px`
+            }}
+          />
+          {/* <div
+            className="gradientTop"
+            tabIndex={1}
+            style={{
+              marginTop: `${-100 + this.getMargin(this.state.gradientTop)}px`
+            }}
+          /> */}
+          {this.props.players.map(player => {
+            return <PlayerForm player={player} players={this.props.players} />;
+          })}
+          <div className="botBox" />
+        </ul>
+      </div>
     );
   }
 }

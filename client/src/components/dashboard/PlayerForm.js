@@ -5,47 +5,95 @@ import { changeProp, getKeyCode } from "../../actions/playerActions";
 
 class PlayerForm extends Component {
   state = {
-    maxColSize: 5
+    maxCols: 4,
+    colorPicker: false,
+    borderSize: 8
+  };
+
+  toggleColorPicker = e => {
+    console.log("in");
+    e.preventDefault();
+    if (!this.state.colorPicker) {
+      this.setState({
+        ...this.state,
+        colorPicker: true
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        colorPicker: false
+      });
+    }
   };
 
   render() {
-    const { maxColSize } = this.state;
-    let colSize = Math.floor(
-      maxColSize / (this.props.players.length % maxColSize)
-    );
+    const { maxCols, colorPicker, borderSize } = this.state;
+    let colSize = Math.floor(maxCols / (this.props.players.length % maxCols));
     let colsTotal =
-      Math.floor(maxColSize / (this.props.players.length % maxColSize)) *
-      this.props.players
-        .length; /* % maxColSize //if it the colums should reset*/
-    if (!colsTotal || colsTotal > maxColSize) {
-      colsTotal = maxColSize;
+      Math.floor(maxCols / (this.props.players.length % maxCols)) *
+      this.props.players.length; /* % maxCols //if it the colums should reset*/
+    if (!colsTotal || colsTotal > maxCols) {
+      colsTotal = maxCols;
       colSize = 1;
     }
 
-    const { name, textColor, id, keyCode, color } = this.props.player;
+    const { name, id, keyCode, color } = this.props.player;
 
     return (
       <form class={`player-details col-${colSize}-${colsTotal}`}>
-        <input htmlFor="name" placeholder={name} />
         <input
-          htmlFor="color"
-          value={color}
-          style={{ background: color, color: textColor }}
+          className="player-field player-name"
+          htmlFor="name"
+          placeholder={name}
+          style={{ borderBottom: `${borderSize}px solid ${color}` }}
         />
-        <input
-          htmlFor="keyCode"
-          value={String.fromCharCode(getKeyCode(keyCode)).toUpperCase()}
-          onKeyUp={e => {
-            this.props.changeProp(this.props.players, id, e.keyCode, "keyCode");
-          }}
-        />
-        <HuePicker
-          width="100%"
-          color={color}
-          onChange={color => {
-            this.props.changeProp(this.props.players, id, color.hex, "color");
-          }}
-        />
+        <div
+          className={`player-field player-color color-col-${
+            colorPicker ? 2 : 1
+          }-2`}
+          onMouseUp={this.toggleColorPicker}
+          style={{ borderBottom: `${borderSize}px solid ${color}` }}
+        >
+          {colorPicker ? (
+            <HuePicker
+              width="100%"
+              height="100%"
+              color={color}
+              onChange={color => {
+                this.props.changeProp(
+                  this.props.players,
+                  id,
+                  color.hex,
+                  "color"
+                );
+              }}
+              onChangeComplete={color => {
+                console.log(color);
+              }}
+            />
+          ) : (
+            <button
+              style={{ background: color }}
+              onClick={this.toggleColorPicker}
+            />
+          )}
+        </div>
+        {colorPicker ? null : (
+          <input
+            className={`player-field player-keycode color-col-1-2`}
+            htmlFor="keyCode"
+            value={String.fromCharCode(getKeyCode(keyCode)).toUpperCase()}
+            onKeyUp={e => {
+              this.props.changeProp(
+                this.props.players,
+                id,
+                e.keyCode,
+                "keyCode"
+              );
+            }}
+            style={{ borderBottom: `${borderSize}px solid ${color}` }}
+          />
+        )}
       </form>
     );
   }

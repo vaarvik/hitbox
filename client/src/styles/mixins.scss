@@ -19,12 +19,11 @@
   }
 }
 
-@mixin generate-grid($columns, $size: "") {
+@mixin generate-grid($columns, $margin: 0, $customName: "col", $size: "") {
   @for $i from 1 through $columns {
-    $margin: 0.25;
     $width: calc((100% / (#{$columns} / #{$i}) - #{$margin * 2}#{"%"}));
     @if ($size == "") {
-      .col-#{$i}-#{$columns} {
+      .#{$customName}-#{$i}-#{$columns} {
         width: $width;
         margin: $margin#{"%"};
         display: inline-block;
@@ -34,11 +33,11 @@
           font-size: 16px;
         }
       }
-      .col-offset-#{$i}-#{$columns} {
+      .#{$customName}-offset-#{$i}-#{$columns} {
         margin-left: $width;
       }
     } @else {
-      .col-#{$size}-#{$i}-#{$columns} {
+      .#{$customName}-#{$size}-#{$i}-#{$columns} {
         width: $width;
         display: inline-block;
         vertical-align: middle;
@@ -47,7 +46,7 @@
           font-size: 16px;
         }
       }
-      .col-#{$size}-offset-#{$i}-#{$columns} {
+      .#{$customName}-#{$size}-offset-#{$i}-#{$columns} {
         margin-left: $width;
       }
     }
