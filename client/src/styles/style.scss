@@ -4,6 +4,7 @@
 
 @include transition();
 
+@include generate-grid(3);
 @include generate-grid(4);
 @include generate-grid(5);
 @include generate-grid(6);
@@ -18,6 +19,7 @@ html,
   position: relative;
   background: black;
   display: inline-block;
+  overflow: hidden;
 }
 
 body {

@@ -1,16 +1,11 @@
 import React, { Component } from "react";
 import { HuePicker } from "react-color";
 import { connect } from "react-redux";
-import { changeKeyCode, getKeyCode } from "../../actions/playerActions";
+import { changeProp, getKeyCode } from "../../actions/playerActions";
 
 class PlayerForm extends Component {
   state = {
-    maxColSize: 7,
-    color: this.props.player.color
-  };
-
-  handleChange = color => {
-    this.setState({ color: color.hex });
+    maxColSize: 5
   };
 
   render() {
@@ -27,27 +22,29 @@ class PlayerForm extends Component {
       colSize = 1;
     }
 
-    const { name, color, id, keyCode } = this.props.player;
+    const { name, textColor, id, keyCode, color } = this.props.player;
 
     return (
       <form class={`player-details col-${colSize}-${colsTotal}`}>
         <input htmlFor="name" placeholder={name} />
         <input
           htmlFor="color"
-          value={this.state.color}
-          style={{ background: this.state.color, color: "white" }}
+          value={color}
+          style={{ background: color, color: textColor }}
         />
         <input
           htmlFor="keyCode"
           value={String.fromCharCode(getKeyCode(keyCode)).toUpperCase()}
           onKeyUp={e => {
-            this.props.changeKeyCode(this.props.players, id, e.keyCode);
+            this.props.changeProp(this.props.players, id, e.keyCode, "keyCode");
           }}
         />
         <HuePicker
           width="100%"
-          color={this.state.color}
-          onChange={this.handleChange}
+          color={color}
+          onChange={color => {
+            this.props.changeProp(this.props.players, id, color.hex, "color");
+          }}
         />
       </form>
     );
@@ -56,8 +53,8 @@ class PlayerForm extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeKeyCode: (state, name, key) =>
-      dispatch(changeKeyCode(state, name, key))
+    changeProp: (state, name, type, prop) =>
+      dispatch(changeProp(state, name, type, prop))
   };
 };
 

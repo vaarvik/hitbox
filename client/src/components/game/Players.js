@@ -28,7 +28,7 @@ class Players extends Component {
   };
 
   setTop = (top, dist, i) => {
-    const array = this.state.players;
+    const array = this.props.players;
     for (let j in array) {
       if (parseInt(j) === i) {
         array[j].box.top = top;
@@ -49,7 +49,7 @@ class Players extends Component {
       speed = 100;
     }
 
-    const array = this.state.players;
+    const array = this.props.players;
     const { keys } = this.state;
 
     for (let j in array) {
@@ -78,7 +78,7 @@ class Players extends Component {
       setTimeout(() => {
         this.validateLineHit(i);
         this.setTop(initTop, 1, i);
-        const array = this.state.players;
+        const array = this.props.players;
         for (let j in array) {
           if (parseInt(j) === parseInt(i)) {
             array[j].speed = 0;
@@ -103,7 +103,7 @@ class Players extends Component {
 
   boxFall = (speed, e, i) => {
     let tSpeed = (speed / 60).toFixed(1);
-    let { top, initTop, dist } = this.state.players[i].box;
+    let { top, initTop, dist } = this.props.players[i].box;
     let newTop = top;
     let newDist = dist;
     let box = e;
@@ -122,12 +122,12 @@ class Players extends Component {
   };
 
   validateLineHit = i => {
-    const player = this.state.players[i];
+    const player = this.props.players[i];
     if (
       player.box.top <= player.line.top + player.line.height &&
       player.box.top + player.box.height > player.line.top
     ) {
-      const array = this.state.players;
+      const array = this.props.players;
       for (let j in array) {
         if (parseInt(j) === parseInt(i)) {
           array[j].score = array[j].score + 1;
@@ -144,14 +144,14 @@ class Players extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.players.map((player, i) => {
+        {this.props.players.map((player, i) => {
           return (
             <div
               key={i}
               className="player"
-              style={{ width: `${100 / this.state.players.length}%` }}
+              style={{ width: `${100 / this.props.players.length}%` }}
             >
-              <p>Score {player.score}</p>
+              {/* <p>Score {player.score}</p> */}
               <Line top={player.line.top} height={player.line.height} />
               <Box
                 jump={this.boxJump}

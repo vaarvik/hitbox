@@ -4,7 +4,11 @@ import { shrinkLine } from "../../../actions/playerActions";
 
 class Box extends Component {
   state = {
-    valid: false
+    valid: false,
+    lineShrink: {
+      amount: 1,
+      time: 15
+    }
   };
 
   loop = e => {
@@ -25,54 +29,63 @@ class Box extends Component {
   };
 
   componentWillMount() {
-    const { keyCode, i, fall, removeKey } = this.props;
+    const { keyCode } = this.props.player;
+    const { i, fall, removeKey, players } = this.props;
     document.body.addEventListener("keydown", e => {
-      switch (e.keyCode) {
-        case keyCode:
-          if (!this.state.valid) {
-            this.setState({
-              valid: true
-            });
-            this.loop(e);
-          }
+      if (e.keyCode === keyCode && !this.state.valid) {
+        this.setState({
+          ...this.state,
+          valid: true
+        });
+        this.loop(e);
       }
     });
+
     document.body.addEventListener("keyup", e => {
-      switch (e.keyCode) {
-        case keyCode:
-          this.setState({
-            valid: false
-          });
-          removeKey(i);
-          if (this.refs && Object.keys(this.refs).length)
-            fall(this.props.speed, this.refs[`box${i}`], i);
+      const { speed } = this.props.player;
+      if (e.keyCode === keyCode) {
+        this.setState({
+          ...this.state,
+          valid: false
+        });
+        removeKey(i);
+        if (this.refs && Object.keys(this.refs).length)
+          fall(speed, this.refs[`box${i}`], i);
       }
     });
-    this.props.shrinkLine(
-      this.props.players,
-      this.props.i,
-      0.5,
-      this.props.player.line.height,
-      5
-    );
+
+    const { line } = this.props.player;
+    const { time, amount } = this.state.lineShrink;
+    let lineHeight = line.height;
+    let interval = setInterval(() => {
+      lineHeight -= amount;
+      if (lineHeight < 0 || !Object.keys(this.refs).length) {
+        clearInterval(interval);
+      } else {
+        this.props.shrinkLine(players, i, amount);
+      }
+    }, time * 1000);
   }
 
   render() {
-    const { height, width, top, rotation, dist, color } = this.props;
+    const { i } = this.props;
+    const { color } = this.props.player;
+    const { height, top, rotation, dist } = this.props.player.box;
+
+    console.log(top);
     return (
       <div
-        id={`box${this.props.i}`}
+        id={`box${i}`}
         className="box"
         tabIndex="0"
         style={{
           top: `${top}%`,
           transform: `translateX(-50%) rotate(${rotation}deg)`,
           height: `${height}%`,
-          width: `${width}%`,
           boxShadow: `1px ${dist}px ${dist}px #44444480`,
           backgroundColor: color
         }}
-        ref={`box${this.props.i}`}
+        ref={`box${i}`}
       />
     );
   }
@@ -86,12 +99,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    shrinkLine: (players, id, amount, lineHeight, time) => {
-      let interval = setInterval(i => {
-        lineHeight -= amount;
-        dispatch(shrinkLine(players, id, amount));
-        if (lineHeight <= 0) clearInterval(interval);
-      }, time * 1000);
+    shrinkLine: (players, id, amount) => {
+      dispatch(shrinkLine(players, id, amount));
     }
   };
 };

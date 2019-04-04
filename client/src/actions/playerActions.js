@@ -58,10 +58,10 @@ export const getRandomColor = () => {
 //---------------------------------------------------------
 
 export const addPlayer = input => {
-  let players = [];
+  let array = [];
   if (!isNaN(input)) {
-    for (let i = 0; i < input; i++) {
-      players.push({
+    for (let i = 0; i < input && i < 10; i++) {
+      array.push({
         id: i,
         name: `Player ${i + 1}`,
         color: getRandomColor(),
@@ -80,9 +80,10 @@ export const addPlayer = input => {
       });
     }
   }
+
   return {
     type: "ADD_PLAYER",
-    players
+    players: array
   };
 };
 
@@ -108,10 +109,10 @@ export const shrinkLine = (players, id, amount) => {
   };
 };
 
-export const changeKeyCode = (players, id, keyCode) => {
+export const changeProp = (players, id, type, prop = type) => {
   let array = players.map(player => {
     if (id === player.id) {
-      player.keyCode = keyCode;
+      player[prop] = type;
     }
     return player;
   });

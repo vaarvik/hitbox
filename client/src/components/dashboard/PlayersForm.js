@@ -9,6 +9,7 @@ class PlayerForm extends Component {
         <label>Players:</label>
         <input
           onKeyUp={e => {
+            if (e.target.value > 10) e.target.value = 10;
             this.props.addPlayer(e.target.value);
           }}
           htmlFor="players"
