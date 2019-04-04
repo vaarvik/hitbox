@@ -19,7 +19,7 @@ html,
   position: relative;
   background: black;
   display: inline-block;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 body {
@@ -30,6 +30,17 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #464646;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ffffff;
+  }
 }
 
 code {

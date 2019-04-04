@@ -1,25 +1,7 @@
-import { getRandomColor } from "../actions/playerActions";
+import { newPlayer } from "../actions/playerActions";
 
 const initState = {
-  players: [
-    {
-      id: 0,
-      name: `Player 1`,
-      color: getRandomColor(),
-      textColor: "white",
-      score: 0,
-      keyCode: 87,
-      box: {
-        height: 5,
-        initTop: 0,
-        top: 0,
-        rotation: 0,
-        dist: 1
-      },
-      line: { top: 20, height: 4 },
-      speed: 0
-    }
-  ]
+  players: [newPlayer()]
 };
 
 const playersReducer = (state = initState, action) => {

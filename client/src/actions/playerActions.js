@@ -46,6 +46,7 @@ export const getRandomColor = () => {
     "e",
     "f"
   ];
+
   const randomComb = `${randomNumLet[getRandomNumber(randomNumLet.length)]}${
     randomNumLet[getRandomNumber(randomNumLet.length)]
   }`;
@@ -57,28 +58,34 @@ export const getRandomColor = () => {
 
 //---------------------------------------------------------
 
-export const addPlayer = input => {
+export const newPlayer = (i = 0) => {
+  return {
+    id: i,
+    name: `Player ${i + 1}`,
+    color: getRandomColor(),
+    textColor: "white",
+    score: 0,
+    keyCode: 65 + i,
+    box: {
+      height: 5,
+      initTop: 0,
+      top: 0,
+      rotation: 0,
+      dist: 1
+    },
+    line: { top: 20, height: 4 },
+    speed: 0
+  };
+};
+
+export const addPlayer = (input, max) => {
   let array = [];
-  if (!isNaN(input)) {
-    for (let i = 0; i < input && i < 10; i++) {
-      array.push({
-        id: i,
-        name: `Player ${i + 1}`,
-        color: getRandomColor(),
-        textColor: "white",
-        score: 0,
-        keyCode: 65 + i,
-        box: {
-          height: 5,
-          initTop: 0,
-          top: 0,
-          rotation: 0,
-          dist: 1
-        },
-        line: { top: 20, height: 4 },
-        speed: 0
-      });
+  if (input > 0 && !isNaN(input)) {
+    for (let i = 0; i < input && i < max; i++) {
+      array.push(newPlayer(i));
     }
+  } else {
+    array.push(newPlayer());
   }
 
   return {
