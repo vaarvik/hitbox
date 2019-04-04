@@ -42,15 +42,17 @@ class PlayerForm extends Component {
     return (
       <form class={`player-details col-${colSize}-${colsTotal}`}>
         <input
-          className="player-field player-name"
+          className={`player-field ${
+            this.props.players.length <= maxCols ? "player-field-big" : ""
+          } player-name`}
           htmlFor="name"
           placeholder={name}
           style={{ borderBottom: `${borderSize}px solid ${color}` }}
         />
         <div
-          className={`player-field player-color color-col-${
-            colorPicker ? 2 : 1
-          }-2`}
+          className={`player-field ${
+            this.props.players.length <= maxCols ? "player-field-big" : ""
+          } player-color color-col-${colorPicker ? 2 : 1}-2`}
           onMouseUp={this.toggleColorPicker}
           style={{ borderBottom: `${borderSize}px solid ${color}` }}
         >
@@ -75,12 +77,18 @@ class PlayerForm extends Component {
             <button
               style={{ background: color }}
               onClick={this.toggleColorPicker}
+              className={`${
+                this.props.players.length <= maxCols ? "big-but" : ""
+              }`}
             />
           )}
         </div>
         {colorPicker ? null : (
           <input
-            className={`player-field player-keycode color-col-1-2`}
+            type="text"
+            className={`player-field ${
+              this.props.players.length <= maxCols ? "player-field-big" : ""
+            } player-keycode color-col-1-2`}
             htmlFor="keyCode"
             value={String.fromCharCode(getKeyCode(keyCode)).toUpperCase()}
             onKeyUp={e => {

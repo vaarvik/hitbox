@@ -12,7 +12,8 @@ class PlayersDisplay extends Component {
       initHeight: 0,
       height: 0,
       maxheight: 55
-    }
+    },
+    gradient: false
   };
   handleScroll = e => {
     const element = e.target;
@@ -45,8 +46,15 @@ class PlayersDisplay extends Component {
   setBottomGradient = e => {
     const { initHeight } = this.state.gradientBottom;
     const { scrollHeight, scrollTop, clientHeight } = e.target;
-
-    if (scrollHeight - (scrollTop + clientHeight) <= initHeight)
+    if (scrollTop <= 0) {
+      this.setState({
+        ...this.state,
+        gradientBottom: {
+          ...this.state.gradientBottom,
+          height: 55
+        }
+      });
+    } else if (scrollHeight - (scrollTop + clientHeight) <= initHeight) {
       this.setState({
         ...this.state,
         gradientBottom: {
@@ -54,6 +62,7 @@ class PlayersDisplay extends Component {
           height: scrollHeight - (scrollTop + clientHeight)
         }
       });
+    }
     //if the scroll is not closing to bottom restore/keep the gradient height
     else {
       this.setState({
@@ -62,6 +71,21 @@ class PlayersDisplay extends Component {
           ...this.state.gradientBottom,
           height: initHeight
         }
+      });
+    }
+  };
+
+  validateScroll = e => {
+    console.log(e.scrollHeight <= e.clientHeight);
+    if (!this.state.gradient && e.scrollHeight > e.clientHeight) {
+      this.setState({
+        ...this.state,
+        gradient: true
+      });
+    } else if (this.state.gradient && e.scrollHeight <= e.clientHeight) {
+      this.setState({
+        ...this.state,
+        gradient: false
       });
     }
   };
@@ -80,30 +104,34 @@ class PlayersDisplay extends Component {
     return gradient.height - gradient.initHeight - gradient.initHeight / 2;
   };
 
+  componentDidUpdate() {
+    this.validateScroll(this.refs.ul);
+  }
+
   render() {
     return (
-      <div className="ul-holder">
-        <ul ref="ul" onScroll={this.handleScroll}>
+      <ul ref="ul" onScroll={this.handleScroll}>
+        {this.state.gradient ? (
           <div
             className="gradientBot"
-            tabIndex={1}
             style={{
               marginBottom: `${this.getMargin(this.state.gradientBottom)}px`
             }}
           />
-          {/* <div
+        ) : null}
+
+        {/* <div
             className="gradientTop"
             tabIndex={1}
             style={{
               marginTop: `${-100 + this.getMargin(this.state.gradientTop)}px`
             }}
           /> */}
-          {this.props.players.map(player => {
-            return <PlayerForm player={player} players={this.props.players} />;
-          })}
-          <div className="botBox" />
-        </ul>
-      </div>
+        {this.props.players.map(player => {
+          return <PlayerForm player={player} players={this.props.players} />;
+        })}
+        <div className="botBox" />
+      </ul>
     );
   }
 }

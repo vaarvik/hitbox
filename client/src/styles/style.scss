@@ -84,15 +84,10 @@ figure {
   }
 }
 
-.ul-holder {
-  height: 53%;
-  overflow: hidden;
-}
-
 ul {
   margin-top: $elementSpacing 0;
   padding: 0;
-  height: 100%;
+  height: 58%;
   position: relative;
   overflow-y: auto;
   background: transparent;
@@ -111,7 +106,7 @@ ul {
     pointer-events: none;
     height: 14%;
     bottom: 0;
-    width: calc(100% - 10px);
+    width: 100%;
     background: linear-gradient(0deg, #242424, #242424, #242424, transparent);
     z-index: 1;
   }
@@ -127,7 +122,7 @@ ul {
 
 .botBox {
   width: 100%;
-  height: 50px;
+  height: 100px;
 }
 
 .player-details {
@@ -146,12 +141,14 @@ ul {
     text-align: center;
     outline: none;
   }
+  .player-field-big {
+    height: 100px;
+  }
   .player-name {
     display: block;
     width: 100%;
   }
   .player-color {
-    height: 50px;
     box-sizing: border-box;
     padding: 0;
     button {
@@ -159,7 +156,7 @@ ul {
       height: 23px;
       width: 23px;
       position: relative;
-      top: calc(13.5px - 8px / 2);
+      top: calc((50px - 23px) / 2 - 8px / 2);
       border-radius: 20%;
       border: 1.8px solid white;
       outline: none;
@@ -170,18 +167,30 @@ ul {
         transition: 0.2s;
       }
     }
+    .big-but {
+      top: calc((100px - 23px) / 2 - 8px / 2);
+    }
   }
   .hue-horizontal > div {
     top: calc(50% - (18px / 2));
   }
   .player-keycode {
     font-weight: 600;
+    color: transparent;
+    text-shadow: 0 0 0 #2196f3;
+    background: rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    font-size: 20px;
+    &:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.01);
+    }
   }
 }
 
 form {
   color: white;
-  height: 25%;
+  height: 20%;
   text-align: center;
   position: relative;
   margin: $elementSpacing 0;
