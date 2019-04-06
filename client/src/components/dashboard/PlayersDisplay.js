@@ -11,7 +11,7 @@ class PlayersDisplay extends Component {
     gradientTop: {
       initHeight: 0,
       height: 0,
-      maxheight: 55
+      maxheight: 70
     },
     gradient: false
   };
@@ -112,7 +112,7 @@ class PlayersDisplay extends Component {
       <ul ref="ul" onScroll={this.handleScroll}>
         {this.state.gradient ? (
           <div
-            className="gradientBot"
+            className="scroll-gradient scroll-gradient-bottom"
             style={{
               marginBottom: `${this.getMargin(this.state.gradientBottom)}px`
             }}
@@ -120,7 +120,7 @@ class PlayersDisplay extends Component {
         ) : null}
         {this.state.gradient ? (
           <div
-            className="gradientTop"
+            className="scroll-gradient scroll-gradient-top"
             tabIndex={1}
             style={{
               marginTop: `${-this.state.gradientTop.maxheight +

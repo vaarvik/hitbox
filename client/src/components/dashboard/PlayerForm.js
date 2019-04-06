@@ -47,14 +47,14 @@ class PlayerForm extends Component {
           } player-name`}
           htmlFor="name"
           placeholder={name}
-          style={{ borderBottom: `${borderSize}px solid ${color}` }}
+          style={{ borderBottomColor: `${color}` }}
         />
         <div
           className={`player-field ${
             this.props.players.length <= maxCols ? "player-field-big" : ""
           } player-color color-col-${colorPicker ? 2 : 1}-2`}
           onMouseUp={this.toggleColorPicker}
-          style={{ borderBottom: `${borderSize}px solid ${color}` }}
+          style={{ borderBottomColor: `${color}` }}
         >
           {colorPicker ? (
             <HuePicker
@@ -99,7 +99,7 @@ class PlayerForm extends Component {
                 "keyCode"
               );
             }}
-            style={{ borderBottom: `${borderSize}px solid ${color}` }}
+            style={{ borderBottomColor: `${color}` }}
           />
         )}
       </li>
