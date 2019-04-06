@@ -40,7 +40,7 @@ class PlayerForm extends Component {
     const { name, id, keyCode, color } = this.props.player;
 
     return (
-      <form class={`player-details col-${colSize}-${colsTotal}`}>
+      <li class={`player-details col-${colSize}-${colsTotal}`}>
         <input
           className={`player-field ${
             this.props.players.length <= maxCols ? "player-field-big" : ""
@@ -102,7 +102,7 @@ class PlayerForm extends Component {
             style={{ borderBottom: `${borderSize}px solid ${color}` }}
           />
         )}
-      </form>
+      </li>
     );
   }
 }

@@ -5,11 +5,11 @@
 @include transition();
 
 @include generate-grid(2, 0, "color-col");
-@include generate-grid(3, $margin);
-@include generate-grid(4, $margin);
-@include generate-grid(5, $margin);
-@include generate-grid(6, $margin);
-@include generate-grid(7, $margin);
+@include generate-grid(3, $gridMargin);
+@include generate-grid(4, $gridMargin);
+@include generate-grid(5, $gridMargin);
+@include generate-grid(6, $gridMargin);
+@include generate-grid(7, $gridMargin);
 
 body,
 html,
@@ -30,8 +30,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #1d1d1d;
-  background: linear-gradient(180deg, rgb(0, 0, 0), #242424, #242424);
+  background: #242424;
+  // background: linear-gradient(180deg, rgb(0, 0, 0), #242424, #242424);
   overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 10px;
@@ -51,8 +51,8 @@ code {
 }
 
 h1 {
-  margin: $elementSpacing 0;
-  height: 7%;
+  margin: #{$elementSpacing}vh 0;
+  height: #{$h1Height}#{"%"};
 }
 
 figure {
@@ -85,9 +85,12 @@ figure {
 }
 
 ul {
-  margin-top: $elementSpacing 0;
+  margin-top: #{$elementSpacing}vh;
   padding: 0;
-  height: 58%;
+  height: 55.5%;
+  height: calc(
+    (100 - #{$totalSpacing} - #{$h1Height} - #{$playersFormHeight}) * 1%
+  );
   position: relative;
   overflow-y: auto;
   background: transparent;
@@ -190,12 +193,14 @@ ul {
 
 form {
   color: white;
-  height: 20%;
+  height: #{$playersFormHeight}#{"%"};
   text-align: center;
   position: relative;
-  margin: $elementSpacing 0;
+  margin: #{$elementSpacing}vh 0;
+  z-index: 2;
   input {
     width: 40%;
+    max-width: 300px;
     height: 100%;
     color: white;
     font-size: 4em;
@@ -226,13 +231,14 @@ footer {
 
 .box {
   width: 50%;
-  height: $height;
+  max-width: 100px;
+  height: $boxHeight;
   background: red;
   box-shadow: 2px 1px 1px #00000080;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  border-radius: 10%;
+  border-radius: 5%;
   outline: none;
 }
 

@@ -51,7 +51,7 @@ class PlayersDisplay extends Component {
         ...this.state,
         gradientBottom: {
           ...this.state.gradientBottom,
-          height: 55
+          height: initHeight
         }
       });
     } else if (scrollHeight - (scrollTop + clientHeight) <= initHeight) {
@@ -76,7 +76,6 @@ class PlayersDisplay extends Component {
   };
 
   validateScroll = e => {
-    console.log(e.scrollHeight <= e.clientHeight);
     if (!this.state.gradient && e.scrollHeight > e.clientHeight) {
       this.setState({
         ...this.state,
@@ -119,18 +118,20 @@ class PlayersDisplay extends Component {
             }}
           />
         ) : null}
-
-        {/* <div
+        {this.state.gradient ? (
+          <div
             className="gradientTop"
             tabIndex={1}
             style={{
-              marginTop: `${-100 + this.getMargin(this.state.gradientTop)}px`
+              marginTop: `${-this.state.gradientTop.maxheight +
+                this.getMargin(this.state.gradientTop)}px`
             }}
-          /> */}
+          />
+        ) : null}
         {this.props.players.map(player => {
           return <PlayerForm player={player} players={this.props.players} />;
         })}
-        <div className="botBox" />
+        {/* <div className="botBox" /> */}
       </ul>
     );
   }

@@ -1,4 +1,13 @@
-$height: 20%;
-$pos: 100% - $height;
-$margin: 0.2;
-$elementSpacing: 5%;
+//box
+$boxHeight: 20%;
+
+//grid
+$gridMargin: 0.2;
+
+//spacing
+$elementSpacing: 5;
+$totalSpacing: #{$elementSpacing * 3};
+
+//heights
+$h1Height: 7;
+$playersFormHeight: 22.5;
