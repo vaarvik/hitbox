@@ -21,11 +21,14 @@
 
 @mixin generate-grid($columns, $margin: 0, $customName: "col", $size: "") {
   @for $i from 1 through $columns {
-    $width: calc((100% / (#{$columns} / #{$i}) - #{$margin * 2}#{"%"}));
+    $width: calc((100% / (#{$columns} / #{$i}) - #{$margin * 2}));
+    @if ($margin == 0) {
+      $width: calc((100% / (#{$columns} / #{$i})));
+    }
     @if ($size == "") {
       .#{$customName}-#{$i}-#{$columns} {
         width: $width;
-        margin: $margin#{"%"};
+        margin: $margin;
         display: inline-block;
         vertical-align: middle;
         font-size: 0;

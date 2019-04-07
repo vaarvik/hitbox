@@ -1,22 +1,42 @@
-//box
-$boxHeight: 20%;
+//colors
+$white: #e2e2e2;
+$black: #161616;
+$mainBgColor: #242424;
+$speedoColor: red;
+$inputBgColor: darken(
+  $color: $mainBgColor,
+  $amount: 2
+);
+$playerKeyCodeBg: lighten(
+  $color: $inputBgColor,
+  $amount: 6
+);
+$playerKeyCodeTextColor: #2196f3;
+$labelColor: lighten(
+  $color: $inputBgColor,
+  $amount: 35
+);
+$lineColor: blue;
 
 //grid
-$gridMargin: 0.2;
+$gridMargin: 0.2%;
 
 //spacing
-$elementSpacing: 5;
+$elementSpacing: 5vh;
 $totalSpacing: #{$elementSpacing * 3};
 
 //heights
-$h1Height: 7;
-$playersFormHeight: 22.5;
-$playerFieldHeight: 50;
-$playerFieldBigHeight: 130;
-$playerColorButtonHeight: 20;
+$h1Height: 2.5em;
+$playersFormHeight: 22.5%;
+$playerFieldHeight: 50px;
+$playerFieldBigHeight: 130px;
+$playerColorButtonHeight: 20px;
+$playerColorBigButtonHeight: 25px;
+$playerColorHuePointerHeight: 22px;
+$boxHeight: 20px;
 
 //width
-$scrollWidth: 5;
+$scrollWidth: 5px;
 
 //border
-$playerInputFieldBorder: 8;
+$playerInputFieldBorder: 8px;

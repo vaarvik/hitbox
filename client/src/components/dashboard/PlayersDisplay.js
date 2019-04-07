@@ -121,7 +121,6 @@ class PlayersDisplay extends Component {
         {this.state.gradient ? (
           <div
             className="scroll-gradient scroll-gradient-top"
-            tabIndex={1}
             style={{
               marginTop: `${-this.state.gradientTop.maxheight +
                 this.getMargin(this.state.gradientTop)}px`
