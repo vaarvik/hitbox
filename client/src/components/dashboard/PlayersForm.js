@@ -23,7 +23,7 @@ class PlayerForm extends Component {
 
   render() {
     return (
-      <form>
+      <div className="players-input">
         <label>Players:</label>
         <input
           onKeyPress={e => {
@@ -38,7 +38,7 @@ class PlayerForm extends Component {
           htmlFor="players"
           placeholder="1"
         />
-      </form>
+      </div>
     );
   }
 }

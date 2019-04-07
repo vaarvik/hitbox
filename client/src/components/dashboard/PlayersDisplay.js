@@ -107,6 +107,10 @@ class PlayersDisplay extends Component {
     this.validateScroll(this.refs.ul);
   }
 
+  componentDidMount() {
+    this.validateScroll(this.refs.ul);
+  }
+
   render() {
     return (
       <ul ref="ul" onScroll={this.handleScroll}>
@@ -130,7 +134,6 @@ class PlayersDisplay extends Component {
         {this.props.players.map(player => {
           return <PlayerForm player={player} players={this.props.players} />;
         })}
-        {/* <div className="botBox" /> */}
       </ul>
     );
   }

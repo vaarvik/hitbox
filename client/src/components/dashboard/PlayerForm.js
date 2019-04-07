@@ -1,18 +1,19 @@
 import React, { Component } from "react";
-import { HuePicker } from "react-color";
 import { connect } from "react-redux";
-import { changeProp, getKeyCode } from "../../actions/playerActions";
+import { changeProp } from "../../actions/playerActions";
+import PlayerKeyInput from "./player-details/PlayerKeyInput";
+import PlayerColorPicker from "./player-details/PlayerColorPicker";
 
 class PlayerForm extends Component {
   state = {
     maxCols: 4,
-    colorPicker: false,
-    borderSize: 8
+    colorPicker: false
   };
 
   toggleColorPicker = e => {
-    console.log("in");
-    e.preventDefault();
+    e.preventDefault(); //don't refresh page when button is clicked
+
+    //change/toggle this.state.colorPicker to true/false
     if (!this.state.colorPicker) {
       this.setState({
         ...this.state,
@@ -27,7 +28,10 @@ class PlayerForm extends Component {
   };
 
   render() {
-    const { maxCols, colorPicker, borderSize } = this.state;
+    const { maxCols, colorPicker } = this.state;
+
+    //-------------------Get the correct cols depending on the number of players that are typed in ----------
+
     let colSize = Math.floor(maxCols / (this.props.players.length % maxCols));
     let colsTotal =
       Math.floor(maxCols / (this.props.players.length % maxCols)) *
@@ -36,6 +40,8 @@ class PlayerForm extends Component {
       colsTotal = maxCols;
       colSize = 1;
     }
+
+    //---------------------------------------------------------------------------------------------------------
 
     const { name, id, keyCode, color } = this.props.player;
 
@@ -47,59 +53,27 @@ class PlayerForm extends Component {
           } player-name`}
           htmlFor="name"
           placeholder={name}
-          style={{ borderBottomColor: `${color}` }}
+          style={{ borderColor: `${color}` }}
         />
-        <div
-          className={`player-field ${
-            this.props.players.length <= maxCols ? "player-field-big" : ""
-          } player-color color-col-${colorPicker ? 2 : 1}-2`}
-          onMouseUp={this.toggleColorPicker}
-          style={{ borderBottomColor: `${color}` }}
-        >
-          {colorPicker ? (
-            <HuePicker
-              width="100%"
-              height="100%"
-              color={color}
-              onChange={color => {
-                this.props.changeProp(
-                  this.props.players,
-                  id,
-                  color.hex,
-                  "color"
-                );
-              }}
-              onChangeComplete={color => {
-                console.log(color);
-              }}
-            />
-          ) : (
-            <button
-              style={{ background: color }}
-              onClick={this.toggleColorPicker}
-              className={`${
-                this.props.players.length <= maxCols ? "big-but" : ""
-              }`}
-            />
-          )}
-        </div>
+
+        <PlayerColorPicker
+          players={this.props.players}
+          maxCols={this.state.maxCols}
+          id={id}
+          color={color}
+          changeProp={this.props.changeProp}
+          colorPicker={colorPicker}
+          toggleColorPicker={this.toggleColorPicker}
+        />
+
         {colorPicker ? null : (
-          <input
-            type="text"
-            className={`player-field ${
-              this.props.players.length <= maxCols ? "player-field-big" : ""
-            } player-keycode color-col-1-2`}
-            htmlFor="keyCode"
-            value={String.fromCharCode(getKeyCode(keyCode)).toUpperCase()}
-            onKeyUp={e => {
-              this.props.changeProp(
-                this.props.players,
-                id,
-                e.keyCode,
-                "keyCode"
-              );
-            }}
-            style={{ borderBottomColor: `${color}` }}
+          <PlayerKeyInput
+            players={this.props.players}
+            maxCols={this.state.maxCols}
+            keyCode={keyCode}
+            id={id}
+            color={color}
+            changeProp={this.props.changeProp}
           />
         )}
       </li>

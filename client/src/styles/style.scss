@@ -105,7 +105,7 @@ ul {
   margin-top: #{$elementSpacing};
   padding: 0;
   height: calc(
-    (100% - #{$totalSpacing} - #{$h1Height} - #{$playersFormHeight})
+    (100% - #{$totalSpacing} - #{$h1Height} - #{$playersInputHeight})
   );
   position: relative;
   overflow-y: auto;
@@ -147,11 +147,6 @@ ul {
       transparent
     );
   }
-}
-
-.botBox {
-  width: 100%;
-  height: 100px;
 }
 
 .player-details {
@@ -224,25 +219,29 @@ ul {
     text-shadow: 0 0 0 $playerKeyCodeTextColor;
     // background: rgba(255, 255, 255, 0.06);
     background: $playerKeyCodeBg;
+    transition: 0.15s;
     cursor: pointer;
     font-size: 20px;
     &:focus {
       outline: none;
-      background: darken($color: $playerKeyCodeBg, $amount: 3);
+      background: darken($color: $playerKeyCodeBg, $amount: 5);
     }
+  }
+  .player-keycode-error {
+    text-shadow: 0 0 0 red;
   }
 }
 
-form {
+.players-input {
   color: $white;
-  height: #{$playersFormHeight};
+  height: #{$playersInputHeight};
   text-align: center;
   position: relative;
   margin: #{$elementSpacing} 0;
   z-index: 2;
   input {
-    width: 40%;
-    max-width: 300px;
+    width: 20%;
+    max-width: 180px;
     height: 100%;
     color: $white;
     font-size: 4em;

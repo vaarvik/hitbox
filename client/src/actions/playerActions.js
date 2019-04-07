@@ -98,6 +98,12 @@ export const getKeyCode = keyCode => {
   switch (keyCode) {
     case 16:
       return 8679;
+    case 13:
+      return 8629;
+    case 9:
+      return 8646;
+    case 32:
+      return 9646;
     default:
       return keyCode;
   }

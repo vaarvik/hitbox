@@ -9,7 +9,7 @@ $inputBgColor: darken(
 );
 $playerKeyCodeBg: lighten(
   $color: $inputBgColor,
-  $amount: 6
+  $amount: 8
 );
 $playerKeyCodeTextColor: #2196f3;
 $labelColor: lighten(
@@ -27,8 +27,8 @@ $totalSpacing: #{$elementSpacing * 3};
 
 //heights
 $h1Height: 2.5em;
-$playersFormHeight: 22.5%;
-$playerFieldHeight: 50px;
+$playersInputHeight: 22.5%;
+$playerFieldHeight: 70px;
 $playerFieldBigHeight: 130px;
 $playerColorButtonHeight: 20px;
 $playerColorBigButtonHeight: 25px;
