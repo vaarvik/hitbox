@@ -6,27 +6,25 @@ class PlayerKeyInput extends Component {
     errorColor: false
   };
 
+  stateChange = value => {
+    this.setState({
+      ...this.state,
+      errorColor: value
+    });
+  };
+
   errorBlink = () => {
     for (let i = 0; i < 5; i++) {
       setTimeout(() => {
         if (this.state.errorColor) {
-          this.setState({
-            ...this.state,
-            errorColor: false
-          });
+          this.stateChange(false);
         } else {
-          this.setState({
-            ...this.state,
-            errorColor: true
-          });
+          this.stateChange(true);
         }
       }, 150 * i);
     }
     if (this.state.errorColor) {
-      this.setState({
-        ...this.state,
-        errorColor: false
-      });
+      this.stateChange(false);
     }
   };
 

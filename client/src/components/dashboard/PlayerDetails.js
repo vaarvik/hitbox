@@ -4,7 +4,7 @@ import { changeProp } from "../../actions/playerActions";
 import PlayerKeyInput from "./player-details/PlayerKeyInput";
 import PlayerColorPicker from "./player-details/PlayerColorPicker";
 
-class PlayerForm extends Component {
+class PlayerDetails extends Component {
   state = {
     maxCols: 4,
     colorPicker: false
@@ -91,4 +91,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps
-)(PlayerForm);
+)(PlayerDetails);

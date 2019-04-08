@@ -156,6 +156,7 @@ ul {
   margin-bottom: 2%;
   .player-field {
     height: #{$playerFieldHeight};
+    transition: 0.5s;
     color: $white;
     padding: 1%;
     box-sizing: border-box;
@@ -219,7 +220,6 @@ ul {
     text-shadow: 0 0 0 $playerKeyCodeTextColor;
     // background: rgba(255, 255, 255, 0.06);
     background: $playerKeyCodeBg;
-    transition: 0.15s;
     cursor: pointer;
     font-size: 20px;
     &:focus {

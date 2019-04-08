@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import PlayersForm from "./PlayersForm";
-import PlayersDisplay from "./PlayersDisplay";
+import PlayersInput from "./PlayersInput";
+import PlayersList from "./PlayersList";
 import Header from "../layout/Header";
 
 export default class Dashboard extends Component {
@@ -8,10 +8,8 @@ export default class Dashboard extends Component {
     return (
       <React.Fragment>
         <Header />
-
-        {/* <h1>HitBox</h1> */}
-        <PlayersForm />
-        <PlayersDisplay />
+        <PlayersInput />
+        <PlayersList />
       </React.Fragment>
     );
   }

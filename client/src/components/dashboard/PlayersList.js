@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PlayerForm from "./PlayerForm";
+import PlayerDetails from "./PlayerDetails";
 
-class PlayersDisplay extends Component {
+class PlayersList extends Component {
   state = {
     gradientBottom: {
       initHeight: 55,
@@ -13,10 +13,12 @@ class PlayersDisplay extends Component {
       height: 0,
       maxheight: 70
     },
-    gradient: false
+    gradient: false //controls if the scroll gradients should appear
   };
+
   handleScroll = e => {
     const element = e.target;
+    //new promise since setState is a async operation
     new Promise(resolve => {
       this.setBottomGradient(e);
       resolve();
@@ -27,19 +29,23 @@ class PlayersDisplay extends Component {
     this.preventScrollBug(element);
   };
 
+  changeGradientHeight = (gradient, newHeight) => {
+    this.setState({
+      ...this.state,
+      [gradient]: {
+        ...this.state[gradient],
+        height: newHeight
+      }
+    });
+  };
+
   setTopGradient = element => {
     const { initHeight, maxheight } = this.state.gradientTop;
     const { scrollHeight, scrollTop, clientHeight } = element;
+
     //if the scroll is closing to bottom decrease the gradient height
-    // console.log(scrollHeight, scrollTop, clientHeight);
     if (scrollTop >= initHeight && scrollTop < maxheight) {
-      this.setState({
-        ...this.state,
-        gradientTop: {
-          ...this.state.gradientTop,
-          height: scrollTop
-        }
-      });
+      this.changeGradientHeight("gradientTop", scrollTop);
     }
   };
 
@@ -47,35 +53,23 @@ class PlayersDisplay extends Component {
     const { initHeight } = this.state.gradientBottom;
     const { scrollHeight, scrollTop, clientHeight } = e.target;
     if (scrollTop <= 0) {
-      this.setState({
-        ...this.state,
-        gradientBottom: {
-          ...this.state.gradientBottom,
-          height: initHeight
-        }
-      });
+      //keep gradient hidden as long as there is no scroll
+      this.changeGradientHeight("gradientBottom", initHeight);
     } else if (scrollHeight - (scrollTop + clientHeight) <= initHeight) {
-      this.setState({
-        ...this.state,
-        gradientBottom: {
-          ...this.state.gradientBottom,
-          height: scrollHeight - (scrollTop + clientHeight)
-        }
-      });
+      //show gradient as long as the scroll position is less than init height
+      this.changeGradientHeight(
+        "gradientBottom",
+        scrollHeight - (scrollTop + clientHeight)
+      );
     }
     //if the scroll is not closing to bottom restore/keep the gradient height
     else {
-      this.setState({
-        ...this.state,
-        gradientBottom: {
-          ...this.state.gradientBottom,
-          height: initHeight
-        }
-      });
+      this.changeGradientHeight("gradientBottom", initHeight); //hide gradient
     }
   };
 
   validateScroll = e => {
+    //check if there is a scrollbar
     if (!this.state.gradient && e.scrollHeight > e.clientHeight) {
       this.setState({
         ...this.state,
@@ -132,7 +126,7 @@ class PlayersDisplay extends Component {
           />
         ) : null}
         {this.props.players.map(player => {
-          return <PlayerForm player={player} players={this.props.players} />;
+          return <PlayerDetails player={player} players={this.props.players} />;
         })}
       </ul>
     );
@@ -145,4 +139,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(PlayersDisplay);
+export default connect(mapStateToProps)(PlayersList);

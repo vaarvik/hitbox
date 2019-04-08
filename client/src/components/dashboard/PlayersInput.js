@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addPlayer } from "../../actions/playerActions";
 
-class PlayerForm extends Component {
+class PlayersInput extends Component {
   state = {
     maxPlayers: 16
   };
@@ -54,4 +54,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps
-)(PlayerForm);
+)(PlayersInput);
