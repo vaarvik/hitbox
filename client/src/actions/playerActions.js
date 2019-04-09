@@ -1,9 +1,9 @@
 //GET RANDOM COLOR
 
 export const getRandomColor = () => {
-  function getRandomNumber(max = 1, min = 0) {
+  const getRandomNumber = (max = 1, min = 0) => {
     return Math.floor(Math.random() * max + min);
-  }
+  };
 
   const isDuplicateIndex = (colorIndexes, currentIndex) => {
     for (let j = 0; j < colorIndexes.length; j++) {
@@ -58,6 +58,8 @@ export const getRandomColor = () => {
 
 //---------------------------------------------------------
 
+//ADDING PLAYERS
+
 export const newPlayer = (i = 0) => {
   return {
     id: i,
@@ -80,11 +82,14 @@ export const newPlayer = (i = 0) => {
 
 export const addPlayer = (input, max) => {
   let array = [];
-  if (input > 0 && !isNaN(input)) {
+
+  //if there is an input - add players in the array
+  if (input > 0) {
     for (let i = 0; i < input && i < max; i++) {
       array.push(newPlayer(i));
     }
-  } else {
+  } //if there is no input - add a single player to the array
+  else {
     array.push(newPlayer());
   }
 
@@ -94,23 +99,32 @@ export const addPlayer = (input, max) => {
   };
 };
 
+//---------------------------------------------------------
+
+//KEY SYMBOLS
+
 export const getKeyCode = keyCode => {
   switch (keyCode) {
-    case 16:
+    case 16: //shift
       return 8679;
-    case 13:
+    case 13: //enter
       return 8629;
-    case 9:
+    case 9: //tab
       return 8646;
-    case 32:
+    case 32: //space
       return 9646;
     default:
       return keyCode;
   }
 };
 
+//----------------------------------------------------------
+
+//LINE
+
 export const shrinkLine = (players, id, amount) => {
   let array = players.map(player => {
+    //if the id belongs to an player - decrease the line height and put the player back into the array with the new properties
     if (id === player.id) {
       player.line.height -= amount;
     }
@@ -122,8 +136,13 @@ export const shrinkLine = (players, id, amount) => {
   };
 };
 
+//----------------------------------------------------------
+
+//CHANGE PROPERTY
+
 export const changeProp = (players, id, type, prop = type) => {
   let array = players.map(player => {
+    //if the id belongs to an player - change the property and put the player back into the array with the new properties
     if (id === player.id) {
       player[prop] = type;
     }
@@ -134,3 +153,5 @@ export const changeProp = (players, id, type, prop = type) => {
     players: array
   };
 };
+
+//----------------------------------------------------------

@@ -72,7 +72,6 @@ class Box extends Component {
     const { color } = this.props.player;
     const { height, top, rotation, dist } = this.props.player.box;
 
-    console.log(top);
     return (
       <div
         id={`box${i}`}

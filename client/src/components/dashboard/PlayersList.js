@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PlayerDetails from "./PlayerDetails";
+import GradientTop from "./players-list/GradientTop";
+import GradientBottom from "./players-list/GradientBottom";
 
 class PlayersList extends Component {
   state = {
@@ -41,7 +43,7 @@ class PlayersList extends Component {
 
   setTopGradient = element => {
     const { initHeight, maxheight } = this.state.gradientTop;
-    const { scrollHeight, scrollTop, clientHeight } = element;
+    const { scrollTop } = element;
 
     //if the scroll is closing to bottom decrease the gradient height
     if (scrollTop >= initHeight && scrollTop < maxheight) {
@@ -52,6 +54,7 @@ class PlayersList extends Component {
   setBottomGradient = e => {
     const { initHeight } = this.state.gradientBottom;
     const { scrollHeight, scrollTop, clientHeight } = e.target;
+
     if (scrollTop <= 0) {
       //keep gradient hidden as long as there is no scroll
       this.changeGradientHeight("gradientBottom", initHeight);
@@ -108,23 +111,17 @@ class PlayersList extends Component {
   render() {
     return (
       <ul ref="ul" onScroll={this.handleScroll}>
-        {this.state.gradient ? (
-          <div
-            className="scroll-gradient scroll-gradient-bottom"
-            style={{
-              marginBottom: `${this.getMargin(this.state.gradientBottom)}px`
-            }}
-          />
-        ) : null}
-        {this.state.gradient ? (
-          <div
-            className="scroll-gradient scroll-gradient-top"
-            style={{
-              marginTop: `${-this.state.gradientTop.maxheight +
-                this.getMargin(this.state.gradientTop)}px`
-            }}
-          />
-        ) : null}
+        <GradientTop
+          margin={
+            -this.state.gradientTop.maxheight +
+            this.getMargin(this.state.gradientTop)
+          }
+          gradient={this.state.gradient}
+        />
+        <GradientBottom
+          margin={this.getMargin(this.state.gradientBottom)}
+          gradient={this.state.gradient}
+        />
         {this.props.players.map(player => {
           return <PlayerDetails player={player} players={this.props.players} />;
         })}
