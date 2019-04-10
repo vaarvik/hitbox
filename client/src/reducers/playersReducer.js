@@ -1,7 +1,7 @@
 import { newPlayer } from "../actions/playerActions";
 
 const initState = {
-  players: [newPlayer()]
+  players: [newPlayer()] //Ensures that there is one player when page is opened
 };
 
 const playersReducer = (state = initState, action) => {
