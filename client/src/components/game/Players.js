@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Box from "./player/Box";
 import Line from "./player/Line";
 import Speedo from "./player/Speedo";
+import Timer from "./player/Timer";
 import { connect } from "react-redux";
 
 class Players extends Component {
@@ -123,15 +124,18 @@ class Players extends Component {
 
   validateLineHit = i => {
     const player = this.props.players[i];
+    //if the any part of the box hits the line...
     if (
       player.box.top <= player.line.top + player.line.height &&
       player.box.top + player.box.height > player.line.top
     ) {
       const array = this.props.players;
       for (let j in array) {
+        //if j === i (id) change the line and score
         if (parseInt(j) === parseInt(i)) {
           array[j].score = array[j].score + 1;
           array[j].line.top = array[j].line.top + 10;
+          array[j].time = array[j].time + 10;
         }
       }
       this.setState({
@@ -171,6 +175,7 @@ class Players extends Component {
                 keys={this.state.keys}
               />
               <Speedo speed={player.speed} />
+              <Timer time={player.time} />
               <footer id="footer" />
             </div>
           );
