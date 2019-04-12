@@ -129,18 +129,19 @@ class Players extends Component {
       player.box.top <= player.line.top + player.line.height &&
       player.box.top + player.box.height > player.line.top
     ) {
-      const array = this.props.players;
-      for (let j in array) {
-        //if j === i (id) change the line and score
-        if (parseInt(j) === parseInt(i)) {
-          array[j].score = array[j].score + 1;
-          array[j].line.top = array[j].line.top + 10;
-          array[j].time = array[j].time + 10;
+      const updatedPlayers = this.props.players;
+      updatedPlayers.map(player => {
+        if (player.id == i) {
+          //if player.id the same as the element id that is pressed
+          player.score++;
+          player.line.top += 10;
+          player.time += 10;
         }
-      }
+        return player;
+      });
       this.setState({
         ...this.state,
-        players: array
+        players: updatedPlayers
       });
     }
   };
@@ -175,7 +176,7 @@ class Players extends Component {
                 keys={this.state.keys}
               />
               <Speedo speed={player.speed} />
-              <Timer time={player.time} />
+              <Timer time={player.time} i={i} />
               <footer id="footer" />
             </div>
           );

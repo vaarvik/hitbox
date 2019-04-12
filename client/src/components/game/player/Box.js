@@ -37,9 +37,13 @@ class Box extends Component {
     const { keyCode } = this.props.player;
     const { i, fall, removeKey, players } = this.props;
     document.body.addEventListener("keydown", e => {
-      //if the key that is pressed is equal to this components keycode and this.state.valid is false
+      //if the key that is pressed is equal to this components keycode, this.state.valid is false and there is time left
       //then change this.state.valid to true and run the loadPower function
-      if (e.keyCode === keyCode && !this.state.valid) {
+      if (
+        e.keyCode === keyCode &&
+        !this.state.valid &&
+        this.props.player.time
+      ) {
         this.setState({
           ...this.state,
           valid: true
@@ -69,7 +73,7 @@ class Box extends Component {
     let interval = setInterval(() => {
       //start an interval that runs every "time's" second
       lineHeight -= amount;
-      //if the lineHeight is more than zero or there is no elements in this.refs clear the interval
+      //if the lineHeight is more than zero or there are no elements in this.refs clear the interval
       if (lineHeight < 0 || !Object.keys(this.refs).length) {
         clearInterval(interval);
       }
