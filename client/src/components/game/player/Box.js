@@ -66,22 +66,6 @@ class Box extends Component {
           fall(speed, this.refs[`box${i}`], i);
       }
     });
-
-    const { line } = this.props.player;
-    const { time, amount } = this.state.lineShrink;
-    let lineHeight = line.height;
-    let interval = setInterval(() => {
-      //start an interval that runs every "time's" second
-      lineHeight -= amount;
-      //if the lineHeight is more than zero or there are no elements in this.refs clear the interval
-      if (lineHeight < 0 || !Object.keys(this.refs).length) {
-        clearInterval(interval);
-      }
-      //else run the shrinkLine function
-      else {
-        this.props.shrinkLine(players, i, amount);
-      }
-    }, time * 1000);
   }
 
   render() {

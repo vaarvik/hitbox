@@ -5,7 +5,7 @@ import Speedo from "./player/Speedo";
 import Timer from "./player/Timer";
 import { connect } from "react-redux";
 
-class Players extends Component {
+class Game extends Component {
   state = {
     players: this.props.players,
     keys: [],
@@ -157,7 +157,13 @@ class Players extends Component {
               style={{ width: `${100 / this.props.players.length}%` }}
             >
               {/* <p>Score {player.score}</p> */}
-              <Line top={player.line.top} height={player.line.height} />
+              <Line
+                top={player.line.top}
+                height={player.line.height}
+                players={this.state.players}
+                player={player}
+                i={i}
+              />
               <Box
                 jump={this.boxJump}
                 fall={this.boxFall}
@@ -192,4 +198,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Players);
+export default connect(mapStateToProps)(Game);
