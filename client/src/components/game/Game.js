@@ -156,7 +156,6 @@ class Game extends Component {
               className="player"
               style={{ width: `${100 / this.props.players.length}%` }}
             >
-              {/* <p>Score {player.score}</p> */}
               <Line
                 top={player.line.top}
                 height={player.line.height}

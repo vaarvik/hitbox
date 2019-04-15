@@ -97,15 +97,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    shrinkLine: (players, id, amount) => {
-      dispatch(shrinkLine(players, id, amount));
-    }
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Box);
+export default connect(mapStateToProps)(Box);

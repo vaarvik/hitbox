@@ -10,8 +10,9 @@ class Line extends Component {
   startCountDown = () => {
     //start a 1 second interval named "interval"
     let { players, i, changeProp } = this.props;
-
+    //add time to start and be set here
     let interval = setInterval(() => {
+      console.log("hi");
       if (this.props.time > 0) {
         //reduce the time for this player by 1 every round
         changeProp(players, i, this.props.time - 1, "time");
