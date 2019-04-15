@@ -67,7 +67,7 @@ export const newPlayer = (i = 0) => {
     color: getRandomColor(),
     textColor: "white",
     score: 0,
-    time: 0,
+    time: 10,
     keyCode: 65 + i,
     box: {
       height: 5,
