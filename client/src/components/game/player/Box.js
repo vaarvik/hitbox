@@ -72,6 +72,9 @@ class Box extends Component {
     const { i } = this.props;
     const { color } = this.props.player;
     const { height, top, rotation, dist } = this.props.player.box;
+    const dyingColor = `${
+      this.props.player.time < 10 ? color + `${this.props.player.time}0` : color
+    }`;
 
     return (
       <div
@@ -83,7 +86,7 @@ class Box extends Component {
           transform: `translateX(-50%) rotate(${rotation}deg)`,
           height: `${height}%`,
           boxShadow: `1px ${dist}px ${dist}px #44444480`,
-          backgroundColor: color
+          backgroundColor: dyingColor
         }}
         ref={`box${i}`}
       />
