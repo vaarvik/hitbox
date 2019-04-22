@@ -75,14 +75,14 @@ h1 {
 figure {
   padding: 0;
   margin: 0;
-  width: 40%;
-  height: 5%;
+  width: 100%;
+  height: 100%;
   display: inline-block;
-  border: solid $speedoColor 2.5px;
-  border-radius: 100% 0% 0% 0%;
+  // border: solid $speedoColor 2.5px;
+  // border-radius: 100% 0% 0% 0%;
   overflow: hidden;
   position: absolute;
-  margin: 1% 3%;
+  // margin: 1% 3%;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);

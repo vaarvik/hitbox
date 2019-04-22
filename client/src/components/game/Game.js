@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Box from "./player/Box";
 import Line from "./player/Line";
-import Speedo from "./player/Speedo";
 import Timer from "./player/Timer";
 import { connect } from "react-redux";
 
@@ -180,9 +179,7 @@ class Game extends Component {
                 removeKey={this.state.removeKey}
                 keys={this.state.keys}
               />
-              <Speedo speed={player.speed} />
               <Timer time={player.time} i={i} />
-              <footer id="footer" />
             </div>
           );
         })}

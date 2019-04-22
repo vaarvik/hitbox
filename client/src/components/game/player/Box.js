@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { shrinkLine } from "../../../actions/playerActions";
+import Speedo from "../player/Speedo";
 
 class Box extends Component {
   state = {
@@ -73,7 +73,9 @@ class Box extends Component {
     const { color } = this.props.player;
     const { height, top, rotation, dist } = this.props.player.box;
     const dyingColor = `${
-      this.props.player.time < 10 ? color + `${this.props.player.time}0` : color
+      this.props.player.time < 10
+        ? color + `${this.props.player.time}0`
+        : `${color}99`
     }`;
 
     return (
@@ -89,7 +91,9 @@ class Box extends Component {
           backgroundColor: dyingColor
         }}
         ref={`box${i}`}
-      />
+      >
+        <Speedo speed={this.props.speed} color={color} />
+      </div>
     );
   }
 }
